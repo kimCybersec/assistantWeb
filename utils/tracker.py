@@ -38,7 +38,7 @@ def markDone(day, taskTitle):
             schedule[day][i] = {"title": task, "status": "done"}
     saveSchedule(schedule)
 
-def showSummary():
+def showSummary(return_string=False):
     schedule = loadSchedule()
     total = 0
     done = 0
@@ -50,7 +50,8 @@ def showSummary():
                     done += 1
             elif isinstance(task, str):
                 total += 1
-    print(f"Total tasks: {total}, Done: {done}, Pending: {total - done}")
+    summary = f"Total tasks: {total}, Done: {done}, Pending: {total - done}"
+    return summary if return_string else print(summary)
 
 def showAllTasks():
     schedule = loadSchedule()
@@ -62,6 +63,7 @@ def showAllTasks():
                 print(f"  - {task.get('title', '')} [{status}]")
             elif isinstance(task, str):
                 print(f"  - {task} [pending]")
+                
 
 if __name__ == "__main__":
     showAllTasks()

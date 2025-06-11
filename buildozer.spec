@@ -203,3 +203,8 @@ android.arch = armeabi-v7a
 
 # (bool) Sign the release version
 # android.release_artifact = .apk
+# Clean build artifacts after successful build
+android.clean_build_after_install = True
+
+# Limit build cache size
+android.build_cache_size = 1G
