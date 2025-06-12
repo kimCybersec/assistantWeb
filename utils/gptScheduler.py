@@ -5,7 +5,7 @@ import re
 API_KEY = "AIzaSyDUiR0PPoQ6syLln02ivXmsKswFwX2weqY"
 genai.configure(api_key=API_KEY)
 
-model = genai.GenerativeModel("gemini-1.5-flash")  # Updated to more stable model
+model = genai.GenerativeModel("gemini-1.5-flash")  
 
 def generateSchedule(goal):
     prompt = """Create a weekly schedule with these requirements:

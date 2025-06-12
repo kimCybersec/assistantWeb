@@ -2,7 +2,7 @@ import json
 import os
 
 dataFile = "data/schedule.json"
-weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+weekDays = ['Monday', "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 
 def checkSchedule():
     if not os.path.exists("data"):
@@ -16,15 +16,19 @@ def loadSchedule():
     with open(dataFile, "r") as f:
         try:
             data = json.load(f)
-            if not isinstance(data, dict):
-                return {day: [] for day in weekDays}
-            return data
+            weekly_tasks = data.get("weekly_tasks", {})
+            return {day: weekly_tasks.get(day, []) for day in weekDays}
         except json.JSONDecodeError:
             return {day: [] for day in weekDays}
 
+
 def saveSchedule(schedule):
+    with open(dataFile, "r") as f:
+        data = json.load(f)
+    data["weekly_tasks"] = schedule
     with open(dataFile, "w") as f:
-        json.dump(schedule, f, indent=4)
+        json.dump(data, f, indent=4)
+
 
 def markDone(day, taskTitle):
     schedule = loadSchedule()
@@ -42,15 +46,24 @@ def showSummary(return_string=False):
     schedule = loadSchedule()
     total = 0
     done = 0
+    lines = []
+
     for day in weekDays:
+        day_total = 0
+        day_done = 0
         for task in schedule.get(day, []):
             if isinstance(task, dict):
-                total += 1
+                day_total += 1
                 if task.get("status") == "done":
-                    done += 1
+                    day_done += 1
             elif isinstance(task, str):
-                total += 1
-    summary = f"Total tasks: {total}, Done: {done}, Pending: {total - done}"
+                day_total += 1
+        total += day_total
+        done += day_done
+        lines.append(f"{day}: {day_done}/{day_total} tasks done")
+
+    lines.append(f"\nOverall: {done}/{total} tasks completed ({total - done} pending)")
+    summary = "\n".join(lines)
     return summary if return_string else print(summary)
 
 def showAllTasks():
@@ -63,9 +76,7 @@ def showAllTasks():
                 print(f"  - {task.get('title', '')} [{status}]")
             elif isinstance(task, str):
                 print(f"  - {task} [pending]")
-                
 
 if __name__ == "__main__":
     showAllTasks()
     showSummary()
-    markDone("Monday", "Task 1")
