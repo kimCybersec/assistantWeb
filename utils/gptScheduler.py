@@ -8,7 +8,9 @@ genai.configure(api_key=API_KEY)
 model = genai.GenerativeModel("gemini-1.5-flash")  
 
 def generateSchedule(goal):
-    prompt = """Create a weekly schedule with these requirements:
+    prompt = f"""Create a weekly schedule with this goal: "{goal}"
+
+    Requirements:
 
     1. WEEKLY TASKS:
     - Generate 1-6 specific tasks/goals for each weekday
@@ -24,24 +26,24 @@ def generateSchedule(goal):
     * Wind-down time before sleep
 
     STRICT OUTPUT FORMAT (RAW JSON ONLY):
-    {
-        "weekly_tasks": {
+    {{
+        "weekly_tasks": {{
             "Monday": ["Task 1", "Task 2"],
             "Tuesday": ["Task 1", "Task 2"]
-        },
-        "daily_schedule": {
-            "Monday": {
+        }},
+        "daily_schedule": {{
+            "Monday": {{
                 "05:00": "Wake up",
                 "06:00": "Task 1",
                 "07:00": "Breakfast"
-            },
-            "Tuesday": {
+            }},
+            "Tuesday": {{
                 "05:00": "Wake up",
                 "06:00": "Task 1",
                 "07:00": "Breakfast"
-            }
-        }
-    }
+            }}
+        }}
+    }}
 
     CRITICAL RULES:
     1. Use ONLY valid JSON syntax

@@ -1,150 +1,145 @@
 {
     "weekly_tasks": {
         "Monday": [
-            {
-                "title": "Plan weekly meals",
-                "status": "done"
-            },
-            {
-                "title": "Grocery shop",
-                "status": "done"
-            },
-            {
-                "title": "Prepare breakfast ingredients",
-                "status": "done"
-            }
+            "Review German vocabulary",
+            "Complete German grammar exercises",
+            "IELTS reading practice",
+            "Cisco networking concepts chapter 1"
         ],
         "Tuesday": [
-            {
-                "title": "Laundry",
-                "status": "done"
-            },
-            "Clean kitchen",
-            "Meal prep for Wednesday"
+            "German conversation practice",
+            "IELTS listening practice",
+            "Cisco configuration practice",
+            "Code project: module A"
         ],
         "Wednesday": [
-            "Pay bills",
-            "Respond to emails",
-            "Review project deadlines"
+            "Review German vocabulary",
+            "IELTS writing task 1",
+            "Cisco troubleshooting exercises",
+            "Code project: module B"
         ],
         "Thursday": [
-            "Read a book chapter",
-            "Write journal entry",
-            "Prepare presentation"
+            "German grammar exercises",
+            "IELTS speaking practice",
+            "Cisco security concepts",
+            "Code project: module C"
         ],
         "Friday": [
-            "Workout",
-            "Plan weekend activities",
-            "Tidy up apartment"
+            "German reading comprehension",
+            "IELTS reading practice",
+            "Cisco exam prep questions",
+            "Code project: module D",
+            "Final code review"
         ],
         "Saturday": [
-            "Socialize with friends",
-            "Go for a hike",
-            "Cook a special meal"
+            "Finish coding project",
+            "Review German notes",
+            "IELTS full practice test"
         ],
         "Sunday": [
-            "Meal prep for next week",
             "Relax and unwind",
-            "Prepare for the work week"
+            "Plan for next week"
         ]
     },
     "daily_schedule": {
         "Monday": {
             "05:00": "Wake up",
-            "05:30": "Quick exercise",
-            "06:00": "Breakfast",
-            "07:00": "Plan weekly meals",
-            "08:00": "Grocery shop",
-            "09:00": "Prepare breakfast ingredients",
+            "05:30": "Breakfast",
+            "06:00": "Review German vocabulary",
+            "07:00": "Complete German grammar exercises",
+            "08:00": "Short break",
+            "08:30": "IELTS reading practice",
+            "09:30": "Short break",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Relax",
-            "20:00": "Read",
-            "21:00": "Wind-down time",
+            "19:00": "Cisco networking concepts chapter 1",
+            "20:00": "Short break",
+            "20:30": "Wind-down time",
             "22:00": "Sleep"
         },
         "Tuesday": {
             "05:00": "Wake up",
-            "05:30": "Quick exercise",
-            "06:00": "Breakfast",
-            "07:00": "Laundry",
-            "08:00": "Clean kitchen",
-            "09:00": "Meal prep for Wednesday",
+            "05:30": "Breakfast",
+            "06:00": "German conversation practice",
+            "07:00": "IELTS listening practice",
+            "08:00": "Short break",
+            "08:30": "Cisco configuration practice",
+            "09:30": "Short break",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Relax",
-            "20:00": "Read",
-            "21:00": "Wind-down time",
+            "19:00": "Code project: module A",
+            "20:00": "Short break",
+            "20:30": "Wind-down time",
             "22:00": "Sleep"
         },
         "Wednesday": {
             "05:00": "Wake up",
-            "05:30": "Quick exercise",
-            "06:00": "Breakfast",
-            "07:00": "Pay bills",
-            "08:00": "Respond to emails",
-            "09:00": "Review project deadlines",
+            "05:30": "Breakfast",
+            "06:00": "Review German vocabulary",
+            "07:00": "IELTS writing task 1",
+            "08:00": "Short break",
+            "08:30": "Cisco troubleshooting exercises",
+            "09:30": "Short break",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Relax",
-            "20:00": "Read",
-            "21:00": "Wind-down time",
+            "19:00": "Code project: module B",
+            "20:00": "Short break",
+            "20:30": "Wind-down time",
             "22:00": "Sleep"
         },
         "Thursday": {
             "05:00": "Wake up",
-            "05:30": "Quick exercise",
-            "06:00": "Breakfast",
-            "07:00": "Read a book chapter",
-            "08:00": "Write journal entry",
-            "09:00": "Prepare presentation",
+            "05:30": "Breakfast",
+            "06:00": "German grammar exercises",
+            "07:00": "IELTS speaking practice",
+            "08:00": "Short break",
+            "08:30": "Cisco security concepts",
+            "09:30": "Short break",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Relax",
-            "20:00": "Read",
-            "21:00": "Wind-down time",
+            "19:00": "Code project: module C",
+            "20:00": "Short break",
+            "20:30": "Wind-down time",
             "22:00": "Sleep"
         },
         "Friday": {
             "05:00": "Wake up",
-            "05:30": "Quick exercise",
-            "06:00": "Breakfast",
-            "07:00": "Workout",
-            "08:00": "Plan weekend activities",
-            "09:00": "Tidy up apartment",
+            "05:30": "Breakfast",
+            "06:00": "German reading comprehension",
+            "07:00": "IELTS reading practice",
+            "08:00": "Short break",
+            "08:30": "Cisco exam prep questions",
+            "09:30": "Short break",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Relax",
-            "20:00": "Read",
-            "21:00": "Wind-down time",
+            "19:00": "Code project: module D",
+            "20:00": "Short break",
+            "20:30": "Final code review",
             "22:00": "Sleep"
         },
         "Saturday": {
             "05:00": "Wake up",
-            "06:00": "Breakfast",
-            "07:00": "Socialize with friends",
-            "10:00": "Go for a hike",
-            "13:00": "Lunch",
-            "18:00": "Cook a special meal",
-            "20:00": "Relax",
-            "21:00": "Wind-down time",
+            "05:30": "Breakfast",
+            "06:00": "Finish coding project",
+            "12:00": "Lunch",
+            "13:00": "Review German notes",
+            "15:00": "IELTS full practice test",
+            "18:00": "Dinner",
+            "20:00": "Wind-down time",
             "22:00": "Sleep"
         },
         "Sunday": {
             "05:00": "Wake up",
-            "06:00": "Breakfast",
-            "07:00": "Meal prep for next week",
-            "09:00": "Relax and unwind",
+            "05:30": "Breakfast",
+            "06:00": "Relax and unwind",
             "12:00": "Lunch",
-            "15:00": "Prepare for the work week",
             "18:00": "Dinner",
-            "20:00": "Relax",
-            "21:00": "Wind-down time",
+            "20:00": "Plan for next week",
             "22:00": "Sleep"
         }
     }

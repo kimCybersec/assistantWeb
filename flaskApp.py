@@ -5,7 +5,6 @@ import json
 
 app = Flask(__name__)
 
-# Neon dark theme template
 HTML_TEMPLATE = """
 <!DOCTYPE html>
 <html>
