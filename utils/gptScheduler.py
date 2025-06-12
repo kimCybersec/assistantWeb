@@ -5,21 +5,27 @@ import re
 API_KEY = "AIzaSyDUiR0PPoQ6syLln02ivXmsKswFwX2weqY"
 genai.configure(api_key=API_KEY)
 
-model = genai.GenerativeModel("gemini-1.5-flash")
+model = genai.GenerativeModel("gemini-1.5-flash")  
 
 def generateSchedule(goal):
-    prompt = f"""Create a weekly schedule with these requirements:
+    prompt = f"""Create a weekly schedule with this goal: "{goal}"
+
+    Requirements:
 
     1. WEEKLY TASKS:
-    - 1-6 specific tasks per day
-    - Example: ["Review vocabulary", "Complete exercises"]
+    - Generate 1-6 specific tasks/goals for each weekday
+    - Example format: ["Review German vocabulary", "Complete grammar exercises"]
 
     2. DAILY SCHEDULE (5AM-11PM):
+    - Assign time blocks to tasks
     - No tasks between 10AM-5PM (work hours)
-    - Include wake up, meals, breaks
-    - Time blocks in 24-hour format
+    - Must include:
+    * Wake up time
+    * Breakfast, lunch, dinner
+    * Short breaks
+    * Wind-down time before sleep
 
-    Return ONLY this JSON format:
+    STRICT OUTPUT FORMAT (RAW JSON ONLY):
     {{
         "weekly_tasks": {{
             "Monday": ["Task 1", "Task 2"],
@@ -28,51 +34,77 @@ def generateSchedule(goal):
         "daily_schedule": {{
             "Monday": {{
                 "05:00": "Wake up",
-                "06:00": "Task 1"
+                "06:00": "Task 1",
+                "07:00": "Breakfast"
             }},
             "Tuesday": {{
                 "05:00": "Wake up",
-                "06:00": "Task 1"
+                "06:00": "Task 1",
+                "07:00": "Breakfast"
             }}
         }}
     }}
 
-    Rules:
-    1. Use double quotes for JSON
-    2. No trailing commas
-    3. No markdown formatting
-    4. No text outside JSON
+    CRITICAL RULES:
+    1. Use ONLY valid JSON syntax
+    2. Use double quotes for all keys and values EXCEPT contractions (you're, don't, etc.)
+    3. Absolutely NO trailing commas
+    4. NO markdown formatting (no ```json ```)
+    5. NO additional text outside the JSON object
+    6. All time slots must be in 24-hour format (e.g., "17:00")
+    7. Work hours (10:00-17:00) must contain only "Work" as activity
+
+    EXAMPLE OF VALID CONTRACTIONS:
+    - "Review children's stories"
+    - "Practice you're/your differences"
+    - "Don't forget breaks"
     """
 
     try:
         response = model.generate_content(
             prompt,
             generation_config={
-                "temperature": 0.3,
+                "temperature": 0.3,  
                 "max_output_tokens": 2000,
-                "response_type": "application/json"  # Updated parameter name
+                "response_mime_type": "application/json"  
             }
         )
         
-        # Extract and clean JSON
-        content = response.text
-        json_str = re.search(r'\{.*\}', content, re.DOTALL).group(0)
+        content = response.text.strip()
+
+        json_match = re.search(r"\{.*\}", content, re.DOTALL)
+        if not json_match:
+            print("No JSON object found in response.")
+            print(f"Raw response:\n{content}")
+            return None
+        json_str = json_match.group(0)
+
+        json_str = json_str.replace("'", '"')  
+        json_str = re.sub(r",\s*}", "}", json_str)  
+        json_str = re.sub(r",\s*]", "]", json_str)  
+
+        try:
+            schedule = json.loads(json_str)
+        except json.JSONDecodeError as e:
+            print(f"JSON parsing failed. Error: {e}")
+            print(f"Problematic content was:\n{json_str}")
+            return None
+
+        required_keys = {"weekly_tasks", "daily_schedule"}
+        if not all(key in schedule for key in required_keys):
+            raise ValueError("Missing required keys in response")
+
+        return schedule
         
-        # Fix common issues
-        json_str = (json_str
-            .replace("'", '"')
-            .replace("True", "true").replace("False", "false")
-        )
-        json_str = re.sub(r',\s*([}\]])', r'\1', json_str)  # Remove trailing commas
-        
-        return json.loads(json_str)
-        
+    except json.JSONDecodeError as e:
+        print(f"JSON parsing failed. Error: {e}")
+        print(f"Problematic content was:\n{content}")
+        return None
     except Exception as e:
         print(f"Error generating schedule: {e}")
-        print(f"Raw response was:\n{content}")
         return None
 
-def saveSchedule(schedule):
+def saveSChedule(schedule):
     if not schedule:
         print("No schedule to save")
         return
