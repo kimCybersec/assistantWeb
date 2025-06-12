@@ -1,30 +1,153 @@
 {
-    "Monday": [
-        "Task 1",
-        "Task 2"
-    ],
-    "Tuesday": [
-        "Task 1",
-        "Task 2"
-    ],
-    "Wednesday": [
-        "Task 1",
-        "Task 2"
-    ],
-    "Thursday": [
-        "Task 1",
-        "Task 2"
-    ],
-    "Friday": [
-        "Task 1",
-        "Task 2"
-    ],
-    "Saturday": [
-        "Task 1",
-        "Task 2"
-    ],
-    "Sunday": [
-        "Task 1",
-        "Task 2"
-    ]
+    "weekly_tasks": {
+        "Monday": [
+            "Plan weekly meals",
+            "Grocery shop",
+            "Prepare breakfast ingredients"
+        ],
+        "Tuesday": [
+            "Laundry",
+            "Clean kitchen",
+            "Tidy living room"
+        ],
+        "Wednesday": [
+            "Pay bills",
+            "Review bank statements",
+            "Meal prep for Thursday"
+        ],
+        "Thursday": [
+            "Write blog post",
+            "Edit photos",
+            "Respond to emails"
+        ],
+        "Friday": [
+            "Book appointments",
+            "Plan weekend activities",
+            "Water plants"
+        ],
+        "Saturday": [
+            "Go for a hike",
+            "Read a book",
+            "Visit friends"
+        ],
+        "Sunday": [
+            "Meal prep for next week",
+            "Clean bathroom",
+            "Relax and unwind"
+        ]
+    },
+    "daily_schedule": {
+        "Monday": {
+            "05:00": "Wake up",
+            "05:30": "Light exercise",
+            "06:00": "Shower",
+            "06:30": "Breakfast",
+            "07:00": "Plan weekly meals",
+            "07:30": "Grocery shop",
+            "08:00": "Prepare breakfast ingredients",
+            "08:30": "Short break",
+            "09:00": "Personal tasks",
+            "10:00": "Work",
+            "17:00": "Work",
+            "18:00": "Dinner",
+            "19:00": "Relax",
+            "20:00": "Short break",
+            "21:00": "Wind-down time",
+            "22:00": "Sleep"
+        },
+        "Tuesday": {
+            "05:00": "Wake up",
+            "05:30": "Light exercise",
+            "06:00": "Shower",
+            "06:30": "Breakfast",
+            "07:00": "Laundry",
+            "07:30": "Clean kitchen",
+            "08:00": "Tidy living room",
+            "08:30": "Short break",
+            "09:00": "Personal tasks",
+            "10:00": "Work",
+            "17:00": "Work",
+            "18:00": "Dinner",
+            "19:00": "Relax",
+            "20:00": "Short break",
+            "21:00": "Wind-down time",
+            "22:00": "Sleep"
+        },
+        "Wednesday": {
+            "05:00": "Wake up",
+            "05:30": "Light exercise",
+            "06:00": "Shower",
+            "06:30": "Breakfast",
+            "07:00": "Pay bills",
+            "07:30": "Review bank statements",
+            "08:00": "Meal prep for Thursday",
+            "08:30": "Short break",
+            "09:00": "Personal tasks",
+            "10:00": "Work",
+            "17:00": "Work",
+            "18:00": "Dinner",
+            "19:00": "Relax",
+            "20:00": "Short break",
+            "21:00": "Wind-down time",
+            "22:00": "Sleep"
+        },
+        "Thursday": {
+            "05:00": "Wake up",
+            "05:30": "Light exercise",
+            "06:00": "Shower",
+            "06:30": "Breakfast",
+            "07:00": "Write blog post",
+            "07:30": "Edit photos",
+            "08:00": "Respond to emails",
+            "08:30": "Short break",
+            "09:00": "Personal tasks",
+            "10:00": "Work",
+            "17:00": "Work",
+            "18:00": "Dinner",
+            "19:00": "Relax",
+            "20:00": "Short break",
+            "21:00": "Wind-down time",
+            "22:00": "Sleep"
+        },
+        "Friday": {
+            "05:00": "Wake up",
+            "05:30": "Light exercise",
+            "06:00": "Shower",
+            "06:30": "Breakfast",
+            "07:00": "Book appointments",
+            "07:30": "Plan weekend activities",
+            "08:00": "Water plants",
+            "08:30": "Short break",
+            "09:00": "Personal tasks",
+            "10:00": "Work",
+            "17:00": "Work",
+            "18:00": "Dinner",
+            "19:00": "Relax",
+            "20:00": "Short break",
+            "21:00": "Wind-down time",
+            "22:00": "Sleep"
+        },
+        "Saturday": {
+            "05:00": "Wake up",
+            "06:00": "Breakfast",
+            "07:00": "Go for a hike",
+            "10:00": "Read a book",
+            "13:00": "Lunch",
+            "14:00": "Visit friends",
+            "18:00": "Dinner",
+            "21:00": "Wind-down time",
+            "22:00": "Sleep"
+        },
+        "Sunday": {
+            "05:00": "Wake up",
+            "06:00": "Breakfast",
+            "07:00": "Meal prep for next week",
+            "08:00": "Clean bathroom",
+            "09:00": "Relax and unwind",
+            "13:00": "Lunch",
+            "18:00": "Dinner",
+            "21:00": "Wind-down time",
+            "22:00": "Sleep"
+        }
+    }
 }

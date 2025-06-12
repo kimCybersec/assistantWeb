@@ -12,11 +12,59 @@ HTML_TEMPLATE = """
 <head>
     <title>Schedule Assistant</title>
     <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
-        .menu { margin-bottom: 20px; }
-        .task-list { margin-top: 20px; }
-        .task { padding: 5px; border-bottom: 1px solid #eee; }
-        .done { text-decoration: line-through; color: #888; }
+<style>
+    body {
+        font-family: 'Segoe UI', sans-serif;
+        background: #f9f9f9;
+        color: #333;
+        padding: 30px;
+        max-width: 800px;
+        margin: auto;
+    }
+    h1, h2 {
+        color: #4b2e83;
+    }
+    .menu a {
+        margin-right: 15px;
+        text-decoration: none;
+        color: #4b2e83;
+        font-weight: bold;
+    }
+    .menu {
+        margin-bottom: 20px;
+        border-bottom: 2px solid #ddd;
+        padding-bottom: 10px;
+    }
+    .task-list {
+        background: #fff;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+    }
+    .task {
+        padding: 8px;
+        margin-bottom: 5px;
+        border-left: 5px solid #ccc;
+    }
+    .done {
+        color: #999;
+        text-decoration: line-through;
+        border-color: #4caf50;
+    }
+    form input[type="text"], form input[type="submit"] {
+        width: 100%;
+        padding: 10px;
+        margin-top: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+    }
+    form input[type="submit"] {
+        background-color: #4b2e83;
+        color: white;
+        cursor: pointer;
+    }
+</style>
+
     </style>
 </head>
 <body>
@@ -61,25 +109,31 @@ def generate():
 
 @app.route('/tasks')
 def show_tasks():
-    schedule = json.load(open('data/schedule.json'))
-    tasks_html = ""
-    for day, tasks in schedule.items():
+    data = json.load(open('data/schedule.json'))
+    weekly = data.get("weekly_tasks", {})
+    daily = data.get("daily_schedule", {})
+
+    tasks_html = "<h2>Weekly Task List</h2><div class='task-list'>"
+    for day, tasks in weekly.items():
         tasks_html += f"<h3>{day}</h3>"
         for task in tasks:
-            if isinstance(task, dict):
-                status = "done" if task.get("status") == "done" else "pending"
-                tasks_html += f'<div class="task {status}">- {task.get("title", "")} [{status}]</div>'
-            else:
-                tasks_html += f'<div class="task">- {task} [pending]</div>'
-    
+            tasks_html += f"<div class='task'>- {task}</div>"
+    tasks_html += "</div>"
+
+    schedule_html = "<h2>Daily Schedule</h2><div class='task-list'>"
+    for day, slots in daily.items():
+        schedule_html += f"<h3>{day}</h3>"
+        for time, activity in slots.items():
+            schedule_html += f"<div class='task'><strong>{time}</strong>: {activity}</div>"
+    schedule_html += "</div>"
+
     return render_template_string(HTML_TEMPLATE + """
-        <h2>All Tasks</h2>
-        <div class="task-list">
-            {{ tasks|safe }}
-        </div>
+        {{ tasks|safe }}
+        {{ schedule|safe }}
         <br>
         <a href="{{ url_for('mark_done') }}">Mark Task as Done</a>
-    """, tasks=tasks_html)
+    """, tasks=tasks_html, schedule=schedule_html)
+
 
 @app.route('/mark-done', methods=['GET', 'POST'])
 def mark_done():
