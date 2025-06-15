@@ -68,7 +68,7 @@ def generateSchedule(goal):
         response = model.generate_content(
             prompt,
             generation_config={
-                "temperature": 1.0,  
+                "temperature": 2.0,  
                 "max_output_tokens": 2000,
             }
         )
