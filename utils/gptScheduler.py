@@ -1,8 +1,6 @@
 import google.generativeai as genai
 import json
 import re
-import firebase_admin
-from firebase_admin import credentials, firestore
 
 API_KEY = "AIzaSyDUiR0PPoQ6syLln02ivXmsKswFwX2weqY"
 genai.configure(api_key=API_KEY)
@@ -58,6 +56,7 @@ def generateSchedule(goal):
     8. Escape ALL apostrophes in text with a backslash (e.g., "children\'s story")
     9. NEVER use straight double quotes within text strings - use single quotes instead
     10. Example of properly escaped text: "Read a short German children\'s story"
+    11. Avoid using " instead of ' for example( "you"re" should be "you're")
 
     EXAMPLE OF VALID CONTRACTIONS:
     - "Review children's stories"
