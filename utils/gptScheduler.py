@@ -1,6 +1,8 @@
 import google.generativeai as genai
 import json
 import re
+import firebase_admin
+from firebase_admin import credentials, firestore
 
 API_KEY = "AIzaSyDUiR0PPoQ6syLln02ivXmsKswFwX2weqY"
 genai.configure(api_key=API_KEY)
@@ -69,7 +71,6 @@ def generateSchedule(goal):
             generation_config={
                 "temperature": 1.0,  
                 "max_output_tokens": 2000,
-                "response_mime_type": "application/json"  
             }
         )
         
