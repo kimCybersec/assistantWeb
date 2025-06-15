@@ -16,7 +16,7 @@ def generateSchedule(goal):
 
     1. WEEKLY TASKS:
     - Generate 1-6 specific tasks/goals for each weekday
-    - Example format: ["Review German vocabulary", "Complete grammar exercises"]
+    - Example format: ["Review German vocabulary","Read a short German children's story", "Complete grammar exercises"]
 
     2. DAILY SCHEDULE (5AM-11PM):
     - Assign time blocks to tasks
