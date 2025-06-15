@@ -3,42 +3,43 @@
         "Monday": [
             "Review German vocabulary",
             "Complete German grammar exercises",
-            "IELTS reading practice",
-            "Cisco networking concepts chapter 1"
+            "Practice IELTS reading",
+            "Study Cisco networking concepts"
         ],
         "Tuesday": [
-            "German conversation practice",
-            "IELTS listening practice",
-            "Cisco configuration practice",
-            "Code project: module A"
+            "Complete IELTS listening practice test",
+            "Work on coding project",
+            "Review German grammar",
+            "Study Cisco security"
         ],
         "Wednesday": [
-            "Review German vocabulary",
-            "IELTS writing task 1",
-            "Cisco troubleshooting exercises",
-            "Code project: module B"
+            "IELTS writing task practice",
+            "German conversation practice (online)",
+            "Cisco configuration labs",
+            "Coding project - debug and test"
         ],
         "Thursday": [
-            "German grammar exercises",
-            "IELTS speaking practice",
-            "Cisco security concepts",
-            "Code project: module C"
+            "IELTS speaking practice (record yourself)",
+            "Review German reading text",
+            "Study Cisco routing protocols",
+            "Coding project - finalize features"
         ],
         "Friday": [
-            "German reading comprehension",
-            "IELTS reading practice",
-            "Cisco exam prep questions",
-            "Code project: module D",
-            "Final code review"
+            "Practice IELTS reading",
+            "German vocabulary test",
+            "Cisco troubleshooting scenarios",
+            "Coding project - final testing and bug fixes"
         ],
         "Saturday": [
             "Finish coding project",
-            "Review German notes",
-            "IELTS full practice test"
+            "Review all IELTS materials",
+            "Relax and unwind"
         ],
         "Sunday": [
-            "Relax and unwind",
-            "Plan for next week"
+            "German movie/podcast",
+            "Review Cisco concepts",
+            "Plan for next week",
+            "Relax and unwind"
         ]
     },
     "daily_schedule": {
@@ -46,101 +47,107 @@
             "05:00": "Wake up",
             "05:30": "Breakfast",
             "06:00": "Review German vocabulary",
-            "07:00": "Complete German grammar exercises",
-            "08:00": "Short break",
-            "08:30": "IELTS reading practice",
-            "09:30": "Short break",
+            "06:30": "Complete German grammar exercises",
+            "07:00": "Short break",
+            "07:15": "Practice IELTS reading",
+            "08:00": "Study Cisco networking concepts",
+            "09:00": "Short break",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Cisco networking concepts chapter 1",
+            "19:00": "Review German grammar",
             "20:00": "Short break",
-            "20:30": "Wind-down time",
-            "22:00": "Sleep"
+            "20:15": "Wind-down time",
+            "21:00": "Sleep"
         },
         "Tuesday": {
             "05:00": "Wake up",
             "05:30": "Breakfast",
-            "06:00": "German conversation practice",
-            "07:00": "IELTS listening practice",
+            "06:00": "Complete IELTS listening practice test",
+            "07:00": "Work on coding project",
             "08:00": "Short break",
-            "08:30": "Cisco configuration practice",
-            "09:30": "Short break",
+            "08:15": "Review German grammar",
+            "09:00": "Study Cisco security",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Code project: module A",
+            "19:00": "IELTS writing task practice",
             "20:00": "Short break",
-            "20:30": "Wind-down time",
-            "22:00": "Sleep"
+            "20:15": "Wind-down time",
+            "21:00": "Sleep"
         },
         "Wednesday": {
             "05:00": "Wake up",
             "05:30": "Breakfast",
-            "06:00": "Review German vocabulary",
-            "07:00": "IELTS writing task 1",
+            "06:00": "IELTS writing task practice",
+            "07:00": "German conversation practice \\(online\\)",
             "08:00": "Short break",
-            "08:30": "Cisco troubleshooting exercises",
-            "09:30": "Short break",
+            "08:15": "Cisco configuration labs",
+            "09:00": "Coding project - debug and test",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Code project: module B",
+            "19:00": "Review German reading text",
             "20:00": "Short break",
-            "20:30": "Wind-down time",
-            "22:00": "Sleep"
+            "20:15": "Wind-down time",
+            "21:00": "Sleep"
         },
         "Thursday": {
             "05:00": "Wake up",
             "05:30": "Breakfast",
-            "06:00": "German grammar exercises",
-            "07:00": "IELTS speaking practice",
+            "06:00": "IELTS speaking practice \\(record yourself\\)",
+            "07:00": "Review German reading text",
             "08:00": "Short break",
-            "08:30": "Cisco security concepts",
-            "09:30": "Short break",
+            "08:15": "Study Cisco routing protocols",
+            "09:00": "Coding project - finalize features",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Code project: module C",
+            "19:00": "Practice IELTS reading",
             "20:00": "Short break",
-            "20:30": "Wind-down time",
-            "22:00": "Sleep"
+            "20:15": "Wind-down time",
+            "21:00": "Sleep"
         },
         "Friday": {
             "05:00": "Wake up",
             "05:30": "Breakfast",
-            "06:00": "German reading comprehension",
-            "07:00": "IELTS reading practice",
+            "06:00": "Practice IELTS reading",
+            "07:00": "German vocabulary test",
             "08:00": "Short break",
-            "08:30": "Cisco exam prep questions",
-            "09:30": "Short break",
+            "08:15": "Cisco troubleshooting scenarios",
+            "09:00": "Coding project - final testing and bug fixes",
             "10:00": "Work",
             "17:00": "Work",
             "18:00": "Dinner",
-            "19:00": "Code project: module D",
+            "19:00": "Review all IELTS materials",
             "20:00": "Short break",
-            "20:30": "Final code review",
-            "22:00": "Sleep"
+            "20:15": "Wind-down time",
+            "21:00": "Sleep"
         },
         "Saturday": {
             "05:00": "Wake up",
             "05:30": "Breakfast",
             "06:00": "Finish coding project",
+            "10:00": "Review all IELTS materials",
             "12:00": "Lunch",
-            "13:00": "Review German notes",
-            "15:00": "IELTS full practice test",
+            "14:00": "Relax and unwind",
             "18:00": "Dinner",
-            "20:00": "Wind-down time",
-            "22:00": "Sleep"
+            "20:00": "Relax and unwind",
+            "21:00": "Sleep"
         },
         "Sunday": {
             "05:00": "Wake up",
             "05:30": "Breakfast",
-            "06:00": "Relax and unwind",
+            "06:00": "German movie/podcast",
+            "07:00": "Review Cisco concepts",
+            "08:00": "Short break",
+            "08:15": "Plan for next week",
+            "09:00": "Relax and unwind",
             "12:00": "Lunch",
+            "14:00": "Relax and unwind",
             "18:00": "Dinner",
-            "20:00": "Plan for next week",
-            "22:00": "Sleep"
+            "20:00": "Relax and unwind",
+            "21:00": "Sleep"
         }
     }
 }

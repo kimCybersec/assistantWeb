@@ -53,6 +53,9 @@ def generateSchedule(goal):
     5. NO additional text outside the JSON object
     6. All time slots must be in 24-hour format (e.g., "17:00")
     7. Work hours (10:00-17:00) must contain only "Work" as activity
+    8. Escape ALL apostrophes in text with a backslash (e.g., "children\'s story")
+    9. NEVER use straight double quotes within text strings - use single quotes instead
+    10. Example of properly escaped text: "Read a short German children\'s story"
 
     EXAMPLE OF VALID CONTRACTIONS:
     - "Review children's stories"
@@ -64,7 +67,7 @@ def generateSchedule(goal):
         response = model.generate_content(
             prompt,
             generation_config={
-                "temperature": 0.3,  
+                "temperature": 1.0,  
                 "max_output_tokens": 2000,
                 "response_mime_type": "application/json"  
             }
@@ -82,6 +85,15 @@ def generateSchedule(goal):
         json_str = json_str.replace("'", '"')  
         json_str = re.sub(r",\s*}", "}", json_str)  
         json_str = re.sub(r",\s*]", "]", json_str)  
+        json_str = json_str.replace("'", '"')
+
+        json_str = (
+            json_str.replace("'", '"')
+            .replace("’", "'")  # Replace right single quotes with straight apostrophes
+            .replace("‘", "'")  # Replace left single quotes with straight apostrophes
+            .replace("“", '"')  # Replace left double quotes
+            .replace("”", '"')  # Replace right double quotes
+        )
 
         try:
             schedule = json.loads(json_str)
