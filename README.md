@@ -138,8 +138,8 @@ This project is licensed under the MIT License – see the [LICENSE](LICENSE) fi
 Have questions, feedback, or suggestions? Feel free to reach out:
 
 - **Email**: kimutairainner@gmail.com
-- **GitHub Repo**: [https://github.com/yourusername/daily-planner-assistant](https://github.com/kimCybersec/assistantWeb)
-- **Twitter**: [@DailyPlannerBot](https://twitter.com/DailyPlannerBot)
+- **GitHub Repo**: [https://github.com/kimCybersec/daily-planner-assistant](https://github.com/kimCybersec/assistantWeb)
+- **Twitter**: [@DailyPlannerBot](https://x.com/kim_ke2346)
 
 ---
 
