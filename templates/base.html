@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Schedule Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <h1>Weekly Scheduler</h1>
+    <div class="menu">
+        <a href="{{ url_for('index') }}">Home</a> |
+        <a href="{{ url_for('generateScheduleRoute') }}">Generate Schedule</a> |
+        <a href="{{ url_for('getSummary') }}">Summary</a>
+    </div>
+    {% block content %}{% endblock %}
+    <script src="/static/script.js"></script>
+</body>
+</html>

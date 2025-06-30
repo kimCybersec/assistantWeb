@@ -1,13 +1,13 @@
 import google.generativeai as genai
 import json
 import re
+import os
+from .firestore import saveSchedule
 
-API_KEY = "AIzaSyDUiR0PPoQ6syLln02ivXmsKswFwX2weqY"
-genai.configure(api_key=API_KEY)
+genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
 
-model = genai.GenerativeModel("gemini-1.5-flash")  
 
-def generateSchedule(goal):
+def generateSchedule(goal, sessionId = "anonymous"):
     prompt = f"""Create a weekly schedule with this goal: "{goal}"
 
     Requirements:
@@ -27,11 +27,11 @@ def generateSchedule(goal):
 
     STRICT OUTPUT FORMAT (RAW JSON ONLY):
     {{
-        "weekly_tasks": {{
+        "weeklyTasks": {{
             "Monday": ["Task 1", "Task 2"],
             "Tuesday": ["Task 1", "Task 2"]
         }},
-        "daily_schedule": {{
+        "dailySchedule": {{
             "Monday": {{
                 "05:00": "Wake up",
                 "06:00": "Task 1",
@@ -64,49 +64,21 @@ def generateSchedule(goal):
     - "Don't forget breaks"
     """
 
+    model = genai.GenerativeModel("gemini-1.5-flash")  
     try:
         response = model.generate_content(
             prompt,
-            generation_config={
-                "temperature": 2.0,  
-                "max_output_tokens": 2000,
-            }
+            generation_config=genai.types.GenerationConfig(
+                temperature=2.0,  
+                max_output_tokens=2000,
+            )
         )
         
         content = response.text.strip()
-
-        json_match = re.search(r"\{.*\}", content, re.DOTALL)
-        if not json_match:
-            print("No JSON object found in response.")
-            print(f"Raw response:\n{content}")
-            return None
-        json_str = json_match.group(0)
-
-        json_str = json_str.replace("'", '"')  
-        json_str = re.sub(r",\s*}", "}", json_str)  
-        json_str = re.sub(r",\s*]", "]", json_str)  
-        json_str = json_str.replace("'", '"')
-
-        json_str = (
-            json_str.replace("'", '"')
-            .replace("’", "'")  # Replace right single quotes with straight apostrophes
-            .replace("‘", "'")  # Replace left single quotes with straight apostrophes
-            .replace("“", '"')  # Replace left double quotes
-            .replace("”", '"')  # Replace right double quotes
-        )
-
-        try:
-            schedule = json.loads(json_str)
-        except json.JSONDecodeError as e:
-            print(f"JSON parsing failed. Error: {e}")
-            print(f"Problematic content was:\n{json_str}")
-            return None
-
-        required_keys = {"weekly_tasks", "daily_schedule"}
-        if not all(key in schedule for key in required_keys):
-            raise ValueError("Missing required keys in response")
-
-        return schedule
+        scheduleData = json.loads(content)
+        
+        saveSchedule(sessionId, scheduleData)
+        return scheduleData
         
     except json.JSONDecodeError as e:
         print(f"JSON parsing failed. Error: {e}")
@@ -116,14 +88,4 @@ def generateSchedule(goal):
         print(f"Error generating schedule: {e}")
         return None
 
-def saveSChedule(schedule):
-    if not schedule:
-        print("No schedule to save")
-        return
-        
-    try:
-        with open("data/schedule.json", "w") as f:
-            json.dump(schedule, f, indent=4)
-            print("Schedule saved successfully")
-    except Exception as e:
-        print(f"Error saving schedule: {e}")
+

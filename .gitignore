@@ -1,0 +1,4 @@
+.venv
+.vscode
+schedulerFirebase.json
+.env

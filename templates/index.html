@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block content %}
+<form method="POST">
+    <div class="schedule-container">
+    {% for day in days %}
+        <div class="day-block">
+            <button type="button" class="day-btn" onclick="toggleDay('{{ day }}')">
+                {{ day }}
+            </button>
+            <div id="{{ day }}-content" class="day-content" style="display:none;">
+                <h3>Tasks</h3>
+                <ul>
+                {% for task in scheduleData.get('weeklyTasks', {}).get(day, []) %}
+                    {% if task is string %}
+                        <li>
+                            <label>
+                                <input type="checkbox" name="task_{{ day }}" value="{{ task }}">
+                                {{ task }}
+                            </label>
+                        </li>
+                    {% else %}
+                        <li class="{% if task.get('status') == 'done' %}task-done{% endif %}">
+                            <label>
+                                <input type="checkbox" name="task_{{ day }}" value="{{ task.get('title', '') }}" 
+                                       {% if task.get('status') == 'done' %}checked{% endif %}>
+                                {{ task.get('title', '') }}
+                            </label>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li>No tasks scheduled</li>
+                {% endfor %}
+                </ul>
+                
+                <h3>Daily Schedule</h3>
+                <ul>
+                {% for time, activity in scheduleData.get('dailySchedule', {}).get(day, {}).items()|sort %}
+                    <li><strong>{{ time }}:</strong> {{ activity }}</li>
+                {% else %}
+                    <li>No schedule available</li>
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+    <input type="submit" value="Update Tasks" class="submit-btn">
+</form>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h2>Generate New Schedule</h2>
+<form method="POST">
+    <label for="goal">What is your goal for this week?</label><br>
+    <input type="text" id="goal" name="goal" required 
+           style="width: 100%; padding: 8px; margin-bottom: 15px;"><br>
+    <input type="submit" value="Generate Schedule" class="submit-btn">
+</form>
+{% endblock %}
