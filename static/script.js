@@ -1,25 +1,68 @@
-function toggleDay(day) {
-    const element = document.getElementById(`${day}-content`);
-    if (element) {
-        element.style.display = element.style.display === 'none' ? 'block' : 'none';
-    }
-}
-
 document.addEventListener('DOMContentLoaded', function() {
-  const dayButtons = document.querySelectorAll('.day-btn');
-  
-  dayButtons.forEach(button => {
-    button.addEventListener('click', function() {
-      document.querySelectorAll('.day-content').forEach(content => {
-        if (content !== this.nextElementSibling) {
-          content.classList.remove('active');
-          this.previousElementSibling?.classList?.remove('active');
-        }
-      });
-      
-      const content = this.nextElementSibling;
-      content.classList.toggle('active');
-      this.classList.toggle('active');
+    // Tab functionality
+    const dayButtons = document.querySelectorAll('.day-btn');
+    dayButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const content = this.nextElementSibling;
+            const icon = this.querySelector('.toggle-icon');
+            
+            // Toggle current day
+            content.classList.toggle('active');
+            icon.textContent = content.classList.contains('active') ? '−' : '+';
+        });
     });
-  });
+
+    // Task completion functionality
+    document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            const taskItem = this.closest('.task-item');
+            if (this.checked) {
+                taskItem.classList.add('task-done');
+                // Send update to server
+                updateTaskStatus(this);
+            } else {
+                taskItem.classList.remove('task-done');
+                // Send update to server
+                updateTaskStatus(this);
+            }
+        });
+    });
+
+    // Initialize first day as open by default
+    if (dayButtons.length > 0) {
+        dayButtons[0].click();
+    }
 });
+
+function updateTaskStatus(checkbox) {
+    const day = checkbox.name.replace('task_', '');
+    const taskTitle = checkbox.value;
+    const status = checkbox.checked ? 'done' : 'pending';
+    
+    fetch('/update-task', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+            day: day,
+            taskTitle: taskTitle,
+            status: status
+        })
+    }).then(response => {
+        if (!response.ok) {
+            throw new Error('Update failed');
+        }
+        return response.json();
+    }).then(data => {
+        if (!data.success) {
+            throw new Error('Server reported failure');
+        }
+    }).catch(error => {
+        console.error('Error:', error);
+        // Revert visual change if update failed
+        checkbox.checked = !checkbox.checked;
+        const taskItem = checkbox.closest('.task-item');
+        taskItem.classList.toggle('task-done');
+    });
+}

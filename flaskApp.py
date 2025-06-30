@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, jsonify
 from utils.gptScheduler import generateSchedule
 from utils.firestore import saveSchedule, getSchedule, updateSchedule, updateTask
 from utils.userManager import generateUserId
@@ -71,5 +71,24 @@ def getSummary():
     
     return render_template('summary.html', summary="\n".join(summary))
 
+@app.route('/update-task', methods=['POST'])
+def updateTaskRoute():
+    try:
+        data = request.get_json()
+        day = data.get('day')
+        taskTitle = data.get('taskTitle')
+        status = data.get('status')
+        userId = request.userId
+        
+        if not all([day, taskTitle, status]):
+            return jsonify({'success': False, 'error': 'Missing parameters'}), 400
+        
+        updateTask(userId, day, taskTitle, status)
+        
+        return jsonify({'success': True})
+    except Exception as e:
+        print(f"Error updating task: {e}")
+        return jsonify({'success': False}), 500
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 5000)))
+    app.run(host='0.0.0.0', port=int(os.getenv('PORT', 50000)))

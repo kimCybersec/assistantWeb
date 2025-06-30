@@ -5,13 +5,16 @@
   --secondary: #FEB47B;  /* Peach */
   --background: #2D3047;  /* Dark Navy */
   --card-bg: #3A3E5B;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
   --text: #F8F8F8;
   --text-muted: #D3D3D3;
   --success: #6BD425;
-  --border-radius: 10px;
+  --border-radius: 12px;
   --transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  --micro-interaction: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
+/* Base Styles */
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   background: var(--background);
@@ -23,9 +26,10 @@ body {
   line-height: 1.6;
 }
 
+/* Typography */
 h1, h2, h3 {
   color: var(--primary);
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   font-weight: 600;
 }
 
@@ -42,16 +46,18 @@ h1::after {
   width: 100px;
   height: 4px;
   background: linear-gradient(90deg, var(--primary), var(--secondary));
-  margin: 1rem auto;
+  margin: 1.5rem auto 0;
   border-radius: 2px;
 }
 
+/* Navigation */
 .menu {
   display: flex;
   justify-content: center;
   gap: 1.5rem;
   margin-bottom: 3rem;
   padding-bottom: 1rem;
+  border-bottom: 2px solid rgba(254, 180, 123, 0.2);
 }
 
 .menu a {
@@ -65,7 +71,8 @@ h1::after {
   position: relative;
 }
 
-.menu a:hover, .menu a.active {
+.menu a:hover, 
+.menu a.active {
   color: var(--primary);
   background: rgba(255, 126, 95, 0.1);
 }
@@ -82,10 +89,12 @@ h1::after {
   transition: var(--transition);
 }
 
-.menu a:hover::after, .menu a.active::after {
+.menu a:hover::after,
+.menu a.active::after {
   width: 70%;
 }
 
+/* Schedule Grid */
 .schedule-container {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -93,18 +102,18 @@ h1::after {
   margin-bottom: 3rem;
 }
 
+/* Day Blocks */
 .day-block {
   background: var(--card-bg);
   border-radius: var(--border-radius);
-  padding: 0;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-  transition: var(--transition);
   overflow: hidden;
+  box-shadow: var(--card-shadow);
+  transition: var(--transition);
 }
 
 .day-block:hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.35);
 }
 
 .day-btn {
@@ -127,32 +136,45 @@ h1::after {
   background: linear-gradient(135deg, var(--primary-light), var(--primary));
 }
 
-.day-btn::after {
-  content: '+';
-  font-size: 1.5rem;
+.day-btn .toggle-icon {
+  font-size: 1.3rem;
   transition: var(--transition);
 }
 
-.day-btn.active::after {
-  content: '-';
+.day-btn.active .toggle-icon {
+  transform: rotate(180deg);
 }
 
+/* Day Content */
 .day-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-out;
-  padding: 0 1.5rem;
+    position: relative;
+    z-index: 1;
+    transform: translateY(-5px);
+    margin-top: -5px;
+    transition: all 0.3s ease;
+    opacity: 0;
+    height: 0;
+    padding: 0 1.5rem;
+    overflow: hidden;
 }
 
 .day-content.active {
-  max-height: 1000px;
-  padding: 1.5rem;
-  animation: fadeIn 0.5s ease;
+    opacity: 1;
+    height: auto;
+    padding: 1.5rem;
+    transform: translateY(0);
+    margin-top: 0;
+    animation: none; /* Remove if you had fadeIn animation */
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Task List */
+.task-section {
+  margin-bottom: 2rem;
 }
 
 .task-list {
@@ -164,13 +186,18 @@ h1::after {
   align-items: center;
   padding: 0.8rem;
   border-radius: 8px;
-  transition: var(--transition);
+  transition: var(--micro-interaction);
   margin-bottom: 0.5rem;
   background: rgba(255, 255, 255, 0.03);
 }
 
 .task-item:hover {
   background: rgba(255, 255, 255, 0.08);
+  transform: translateX(3px);
+}
+
+.task-item:active {
+  transform: scale(0.98);
 }
 
 .task-done {
@@ -187,6 +214,7 @@ h1::after {
   flex-grow: 1;
 }
 
+/* Custom Checkbox */
 input[type="checkbox"] {
   appearance: none;
   width: 20px;
@@ -210,10 +238,15 @@ input[type="checkbox"]:checked::after {
   font-size: 0.9rem;
 }
 
-.schedule-list {
-  margin-top: 1.5rem;
+/* Daily Schedule */
+.schedule-section {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
   border-top: 1px solid rgba(255, 255, 255, 0.1);
-  padding-top: 1rem;
+}
+
+.schedule-list {
+  margin-top: 1rem;
 }
 
 .schedule-item {
@@ -232,6 +265,13 @@ input[type="checkbox"]:checked::after {
   color: var(--text);
 }
 
+.empty {
+  color: var(--text-muted);
+  font-style: italic;
+  padding: 0.8rem 0;
+}
+
+/* Buttons */
 .submit-btn {
   background: linear-gradient(135deg, var(--primary), var(--secondary));
   color: white;
@@ -241,20 +281,123 @@ input[type="checkbox"]:checked::after {
   font-weight: 600;
   cursor: pointer;
   margin: 2rem auto;
-  display: block;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: var(--transition);
   font-size: 1rem;
   text-transform: uppercase;
   letter-spacing: 1px;
-  box-shadow: 0 4px 10px rgba(255, 126, 95, 0.3);
+  box-shadow: 0 4px 15px rgba(255, 126, 95, 0.3);
 }
 
 .submit-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 6px 15px rgba(255, 126, 95, 0.4);
+  box-shadow: 0 6px 20px rgba(255, 126, 95, 0.4);
 }
 
-/* Responsive adjustments */
+.submit-btn:active {
+  transform: translateY(-1px);
+}
+
+.submit-icon {
+  margin-left: 0.5rem;
+  transition: var(--transition);
+}
+
+.submit-btn:hover .submit-icon {
+  transform: translateX(3px);
+}
+
+/* Generate Page */
+.generate-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2rem;
+  background: var(--card-bg);
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--primary);
+  font-weight: 500;
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: var(--border-radius);
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--text);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 2px rgba(255, 126, 95, 0.3);
+}
+
+.generate-btn {
+  width: 100%;
+}
+
+/* Summary Page */
+.summary-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.summary-content {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--border-radius);
+  box-shadow: var(--card-shadow);
+  white-space: pre-wrap;
+  overflow-x: auto;
+}
+
+/* Loader */
+.loader-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(45, 48, 71, 0.9);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.loader {
+  border: 4px solid var(--secondary);
+  border-top: 4px solid var(--primary);
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
 @media (max-width: 768px) {
   body {
     padding: 1.5rem;
@@ -306,5 +449,10 @@ input[type="checkbox"]:checked::after {
   .submit-btn {
     padding: 0.8rem 1.5rem;
     font-size: 0.9rem;
+  }
+  
+  .generate-container,
+  .summary-content {
+    padding: 1.5rem;
   }
 }

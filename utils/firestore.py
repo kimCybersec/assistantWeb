@@ -82,30 +82,40 @@ def updateSchedule(sessionId: str, day: str, taskData: Dict[str, Any]) -> bool:
         print(f"Error updating task: {e}")
         return False
 
-def updateTask(sessionId: str, day: str, taskTitle: str, status: str = "done") -> bool:
-    """Update task status without creating duplicates"""
+def updateTask(userId, day, taskTitle, status):
     try:
-        scheduleRef = db.collection("userSchedules").document(sessionId)
-        schedule = scheduleRef.get().to_dict() or {}
+        userRef = db.collection('userSchedules').document(userId)
         
-        updated = False
-        weeklyTasks = schedule.get("weeklyTasks", {}).get(day, [])
+        # Transaction ensures atomic update
+        @firestore.transactional
+        def updateInTransaction(transaction, userRef):
+            doc = userRef.get(transaction=transaction)
+            if not doc.exists:
+                return False
+                
+            schedule = doc.to_dict()
+            tasks = schedule.get('weeklyTasks', {}).get(day, [])
+            updatedTasks = []
+            updated = False
+            
+            for task in tasks:
+                if isinstance(task, dict) and task.get('title') == taskTitle:
+                    updatedTasks.append({'title': taskTitle, 'status': status})
+                    updated = True
+                elif isinstance(task, str) and task == taskTitle:
+                    updatedTasks.append({'title': taskTitle, 'status': status})
+                    updated = True
+                else:
+                    updatedTasks.append(task)
+            
+            if updated:
+                transaction.update(userRef, {
+                    f'weeklyTasks.{day}': updatedTasks,
+                    '_meta.last_updated': datetime.utcnow().isoformat()
+                })
+            return updated
         
-        for i, task in enumerate(weeklyTasks):
-            if isinstance(task, dict) and task.get("title") == taskTitle:
-                weeklyTasks[i]["status"] = status
-                updated = True
-            elif isinstance(task, str) and task == taskTitle:
-                weeklyTasks[i] = {"title": task, "status": status}
-                updated = True
-        
-        if updated:
-            scheduleRef.update({
-                f"weeklyTasks.{day}": weeklyTasks,
-                "_meta.last_updated": datetime.utcnow().isoformat()
-            })
-            return True
-        return False
+        return updateInTransaction(db.transaction(), userRef)
         
     except Exception as e:
         print(f"Error updating task status: {e}")

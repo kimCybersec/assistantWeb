@@ -3,15 +3,22 @@
 <head>
     <title>Schedule Assistant</title>
     <link rel="stylesheet" href="/static/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="loader-container" id="loader">
+        <div class="loader"></div>
+    </div>
+    
     <h1>Weekly Scheduler</h1>
     <div class="menu">
-        <a href="{{ url_for('index') }}">Home</a> |
-        <a href="{{ url_for('generateScheduleRoute') }}">Generate Schedule</a> |
-        <a href="{{ url_for('getSummary') }}">Summary</a>
+        <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a>
+        <a href="{{ url_for('generateScheduleRoute') }}" class="{% if request.endpoint == 'generateScheduleRoute' %}active{% endif %}">Generate Schedule</a>
+        <a href="{{ url_for('getSummary') }}" class="{% if request.endpoint == 'getSummary' %}active{% endif %}">Summary</a>
     </div>
+    
     {% block content %}{% endblock %}
+    
     <script src="/static/script.js"></script>
 </body>
 </html>

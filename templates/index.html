@@ -5,46 +5,48 @@
     <div class="schedule-container">
     {% for day in days %}
         <div class="day-block">
-            <button type="button" class="day-btn" onclick="toggleDay('{{ day }}')">
+            <button type="button" class="day-btn">
                 {{ day }}
+                <span class="toggle-icon">+</span>
             </button>
-            <div id="{{ day }}-content" class="day-content" style="display:none;">
-                <h3>Tasks</h3>
-                <ul>
-                {% for task in scheduleData.get('weeklyTasks', {}).get(day, []) %}
-                    {% if task is string %}
-                        <li>
+            <div class="day-content">
+                <div class="task-section">
+                    <h3>Tasks</h3>
+                    <ul class="task-list">
+                    {% for task in scheduleData.get('weeklyTasks', {}).get(day, []) %}
+                        <li class="task-item {% if task is mapping and task.get('status') == 'done' %}task-done{% endif %}">
                             <label>
-                                <input type="checkbox" name="task_{{ day }}" value="{{ task }}">
-                                {{ task }}
+                                <input type="checkbox" 
+                                       name="task_{{ day }}" 
+                                       value="{{ task.title if task is mapping else task }}"
+                                       {% if task is mapping and task.get('status') == 'done' %}checked{% endif %}>
+                                <span class="task-title">
+                                    {{ task.title if task is mapping else task }}
+                                </span>
                             </label>
                         </li>
                     {% else %}
-                        <li class="{% if task.get('status') == 'done' %}task-done{% endif %}">
-                            <label>
-                                <input type="checkbox" name="task_{{ day }}" value="{{ task.get('title', '') }}" 
-                                       {% if task.get('status') == 'done' %}checked{% endif %}>
-                                {{ task.get('title', '') }}
-                            </label>
-                        </li>
-                    {% endif %}
-                {% else %}
-                    <li>No tasks scheduled</li>
-                {% endfor %}
-                </ul>
+                        <li class="task-item empty">No tasks scheduled</li>
+                    {% endfor %}
+                    </ul>
+                </div>
                 
-                <h3>Daily Schedule</h3>
-                <ul>
-                {% for time, activity in scheduleData.get('dailySchedule', {}).get(day, {}).items()|sort %}
-                    <li><strong>{{ time }}:</strong> {{ activity }}</li>
-                {% else %}
-                    <li>No schedule available</li>
-                {% endfor %}
-                </ul>
+                <div class="schedule-section">
+                    <h3>Daily Schedule</h3>
+                    <ul class="schedule-list">
+                    {% for time, activity in scheduleData.get('dailySchedule', {}).get(day, {}).items()|sort %}
+                        <li class="schedule-item">
+                            <span class="time">{{ time }}</span>
+                            <span class="activity">{{ activity }}</span>
+                        </li>
+                    {% else %}
+                        <li class="schedule-item empty">No schedule available</li>
+                    {% endfor %}
+                    </ul>
+                </div>
             </div>
         </div>
     {% endfor %}
     </div>
-    <input type="submit" value="Update Tasks" class="submit-btn">
 </form>
 {% endblock %}
