@@ -14,7 +14,7 @@ def generateSchedule(goal, sessionId = "anonymous"):
 
     1. WEEKLY TASKS:
     - Generate 1-6 specific tasks/goals for each weekday
-    - Example format: ["Review German vocabulary","Read a short German children's story", "Complete grammar exercises"]
+    - Example format: ["Do this task","Do that task", "Do that other task"]
 
     2. DAILY SCHEDULE (5AM-11PM):
     - Assign time blocks to tasks
@@ -46,22 +46,14 @@ def generateSchedule(goal, sessionId = "anonymous"):
     }}
 
     CRITICAL RULES:
-    1. Use ONLY valid JSON syntax
-    2. Use double quotes for all keys and values EXCEPT contractions (you're, don't, etc.)
-    3. Absolutely NO trailing commas
-    4. NO markdown formatting (no ```json ```)
-    5. NO additional text outside the JSON object
-    6. All time slots must be in 24-hour format (e.g., "17:00")
-    7. Work hours (10:00-17:00) must contain only "Work" as activity
-    8. Escape ALL apostrophes in text with a backslash (e.g., "children\'s story")
-    9. NEVER use straight double quotes within text strings - use single quotes instead
-    10. Example of properly escaped text: "Read a short German children\'s story"
-    11. Avoid using " instead of ' for example( "you"re" should be "you're")
+    1. Never schedule tasks during 9:00-17:00 except "Work"
+    2. All times in 24-hour format (e.g., "17:00")
+    3. Include transition time between activities
+    4. Balance mental/physical activities
+    5. Progressive difficulty throughout week
+    6. Weekend schedules should be more flexible
+    7. Account for 15-minute buffer between major activities
 
-    EXAMPLE OF VALID CONTRACTIONS:
-    - "Review children's stories"
-    - "Practice you're/your differences"
-    - "Don't forget breaks"
     """
 
     model = genai.GenerativeModel("gemini-1.5-flash")  

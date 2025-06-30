@@ -32,6 +32,29 @@ document.addEventListener('DOMContentLoaded', function() {
     if (dayButtons.length > 0) {
         dayButtons[0].click();
     }
+
+    // Add touch event support
+    document.querySelectorAll('.day-btn').forEach(btn => {
+        // Add touch support
+        btn.addEventListener('touchstart', function(e) {
+            this.classList.add('touch-active');
+            e.preventDefault();
+        }, {passive: false});
+        
+        btn.addEventListener('touchend', function() {
+            this.classList.remove('touch-active');
+        });
+    });
+
+    // Better touch feedback
+    const style = document.createElement('style');
+    style.textContent = `
+        .day-btn.touch-active {
+            transform: scale(0.98) !important;
+            opacity: 0.9 !important;
+        }
+    `;
+    document.head.appendChild(style);
 });
 
 function updateTaskStatus(checkbox) {
