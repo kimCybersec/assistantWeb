@@ -492,10 +492,10 @@ input[type="checkbox"]:checked::after {
         border-radius: 10px;
     }
 
-    .day-btn {
-        padding: 0.8rem;
-        font-size: 0.95rem;
-    }
+  .day-btn {
+    position: relative;
+    padding-right: 2.5rem; /* Space for toggle icon */
+  }
 
     .day-content.active {
         padding: 1rem;
@@ -623,4 +623,40 @@ input[type="checkbox"]:checked::after {
         max-height: 200px;
         overflow-y: auto;
     }
+}
+/* Loading State */
+.task-item.updating {
+    position: relative;
+    opacity: 0.8;
+}
+
+.task-item.updating::after {
+    content: '';
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    width: 16px;
+    height: 16px;
+    border: 2px solid var(--primary);
+    border-top-color: transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    transform: translateY(-50%);
+}
+
+/* Error Message */
+.error-message {
+    position: absolute;
+    right: 10px;
+    background: #ff4444;
+    color: white;
+    padding: 0.3rem 0.6rem;
+    border-radius: 4px;
+    font-size: 0.8rem;
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes spin {
+    0% { transform: translateY(-50%) rotate(0deg); }
+    100% { transform: translateY(-50%) rotate(360deg); }
 }

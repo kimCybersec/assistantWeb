@@ -1,25 +1,91 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Schedule Assistant</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Weekly Scheduler</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/static/style.css">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* Critical CSS for initial render */
+        body {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .loader-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--background);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+    </style>
 </head>
 <body>
+    <!-- Loading overlay -->
     <div class="loader-container" id="loader">
         <div class="loader"></div>
     </div>
-    
-    <h1>Weekly Scheduler</h1>
-    <div class="menu">
-        <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">Home</a>
-        <a href="{{ url_for('generateScheduleRoute') }}" class="{% if request.endpoint == 'generateScheduleRoute' %}active{% endif %}">Generate Schedule</a>
-        <a href="{{ url_for('getSummary') }}" class="{% if request.endpoint == 'getSummary' %}active{% endif %}">Summary</a>
+
+    <div class="app-container">
+        <header class="app-header">
+            <h1>Weekly Scheduler</h1>
+            <nav class="menu">
+                <a href="{{ url_for('index') }}" class="{% if request.endpoint == 'index' %}active{% endif %}">
+                    <span class="nav-icon">📅</span>
+                    <span class="nav-text">Schedule</span>
+                </a>
+                <a href="{{ url_for('generateScheduleRoute') }}" class="{% if request.endpoint == 'generateScheduleRoute' %}active{% endif %}">
+                    <span class="nav-icon">✨</span>
+                    <span class="nav-text">Generate</span>
+                </a>
+                <a href="{{ url_for('getSummary') }}" class="{% if request.endpoint == 'getSummary' %}active{% endif %}">
+                    <span class="nav-icon">📊</span>
+                    <span class="nav-text">Summary</span>
+                </a>
+            </nav>
+        </header>
+
+        <main class="main-content">
+            {% block content %}{% endblock %}
+        </main>
+
+        <footer class="app-footer">
+            <p class="current-date" id="currentDate"></p>
+        </footer>
     </div>
-    
-    {% block content %}{% endblock %}
-    
+
     <script src="/static/script.js"></script>
+    <script>
+        // Handle initial load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Hide loader
+            setTimeout(function() {
+                document.getElementById('loader').style.opacity = '0';
+                document.body.style.opacity = '1';
+                setTimeout(function() {
+                    document.getElementById('loader').style.display = 'none';
+                }, 300);
+            }, 200);
+            
+            // Set current date
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('currentDate').textContent = new Date().toLocaleDateString('en-US', options);
+            
+            // Initialize service worker if supported
+            if ('serviceWorker' in navigator) {
+                window.addEventListener('load', () => {
+                    navigator.serviceWorker.register('/sw.js').catch(err => {
+                        console.log('ServiceWorker registration failed: ', err);
+                    });
+                });
+            }
+        });
+    </script>
 </body>
 </html>
