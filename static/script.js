@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Track currently open tab
     let currentOpenTab = null;
     
-    // Tab functionality with mobile support
+    // Tab functionality with improved mobile support
     const dayButtons = document.querySelectorAll('.day-btn');
     dayButtons.forEach(button => {
         button.addEventListener('click', function() {
@@ -25,11 +25,17 @@ document.addEventListener('DOMContentLoaded', function() {
             // Mobile-specific adjustments
             if (window.innerWidth <= 768 && isOpening) {
                 setTimeout(() => {
-                    content.scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'nearest'
-                    });
-                }, 50);
+                    const rect = content.getBoundingClientRect();
+                    const isContentBelowViewport = rect.bottom > (window.innerHeight || document.documentElement.clientHeight);
+                    const isContentAboveViewport = rect.top < 0;
+                    
+                    if (isContentBelowViewport || isContentAboveViewport) {
+                        content.scrollIntoView({ 
+                            behavior: 'smooth', 
+                            block: 'nearest'
+                        });
+                    }
+                }, 100);
             }
         });
     });
@@ -62,6 +68,10 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', function() {
         if (window.innerWidth > 768 && !currentOpenTab && dayButtons.length > 0) {
             dayButtons[0].click();
+        } else if (window.innerWidth <= 768 && currentOpenTab) {
+            currentOpenTab.classList.remove('active');
+            currentOpenTab.previousElementSibling.querySelector('.toggle-icon').textContent = '+';
+            currentOpenTab = null;
         }
     });
 
@@ -69,31 +79,37 @@ document.addEventListener('DOMContentLoaded', function() {
     if ('ontouchstart' in window) {
         document.body.classList.add('touch-device');
         
+        // Add slight delay to prevent accidental double-taps
         dayButtons.forEach(btn => {
-            btn.addEventListener('touchstart', function(e) {
-                this.classList.add('touch-active');
-                e.preventDefault();
+            let lastTouchTime = 0;
+            btn.addEventListener('touchend', function(e) {
+                const currentTime = new Date().getTime();
+                if (currentTime - lastTouchTime < 300) {
+                    e.preventDefault();
+                    return;
+                }
+                lastTouchTime = currentTime;
             }, {passive: false});
-            
-            btn.addEventListener('touchend', function() {
-                this.classList.remove('touch-active');
-            });
         });
 
         // Add touch-specific styles
         const style = document.createElement('style');
         style.textContent = `
             .touch-device .day-btn {
-                padding: 1rem 1.2rem;
+                padding: 1rem 2.5rem 1rem 1rem;
                 min-height: 48px;
             }
             .touch-device .task-item {
-                min-height: 48px;
+                min-height: 44px;
                 padding: 0.8rem 1rem;
             }
             .day-btn.touch-active {
                 transform: scale(0.98) !important;
                 opacity: 0.9 !important;
+            }
+            .touch-device input[type="checkbox"] {
+                width: 22px;
+                height: 22px;
             }
         `;
         document.head.appendChild(style);

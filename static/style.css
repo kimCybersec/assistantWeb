@@ -660,3 +660,61 @@ input[type="checkbox"]:checked::after {
     0% { transform: translateY(-50%) rotate(0deg); }
     100% { transform: translateY(-50%) rotate(360deg); }
 }
+
+/* Add this at the end of your existing style.css */
+/* ==================== */
+/* Mobile Day Content Fix */
+/* ==================== */
+@media (max-width: 768px) {
+    .day-content {
+        position: relative;
+        z-index: 1;
+        opacity: 1;
+        height: auto;
+        max-height: 0;
+        padding: 0 1rem;
+        overflow: hidden;
+        transition: max-height 0.3s ease, padding 0.3s ease;
+        margin-top: 0;
+        transform: none;
+    }
+    
+    .day-content.active {
+        max-height: 1000px; /* Adjust based on your content needs */
+        padding: 1rem;
+    }
+    
+    .day-btn .toggle-icon {
+        position: absolute;
+        right: 1rem;
+    }
+    
+    /* Improve touch targets */
+    .day-btn {
+        padding: 1rem 2.5rem 1rem 1rem;
+        position: relative;
+    }
+    
+    .task-item {
+        padding: 0.8rem 0.5rem;
+    }
+    
+    /* Better scrolling for schedule items */
+    .schedule-list {
+        max-height: 200px;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+}
+
+/* For very small devices */
+@media (max-width: 480px) {
+    .day-content.active {
+        padding: 0.8rem;
+    }
+    
+    .day-btn {
+        font-size: 1rem;
+        padding: 0.8rem 2.2rem 0.8rem 0.8rem;
+    }
+}
