@@ -19,11 +19,6 @@ def generateSchedule(goal, sessionId = "anonymous"):
     2. DAILY SCHEDULE (5AM-11PM):
     - Assign time blocks to tasks and make sure they are accurate
     - No tasks between 10AM-5PM (work hours)
-    - Must include:
-    * Wake up time
-    * Breakfast, lunch, dinner
-    * Short breaks
-    * Wind-down time before sleep
 
     STRICT OUTPUT FORMAT (RAW JSON ONLY):
     {{
