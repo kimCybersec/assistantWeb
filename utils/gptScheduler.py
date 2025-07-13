@@ -30,6 +30,7 @@ def generateSchedule(goal, sessionId = "anonymous"):
     8. Escape ALL apostrophes in text with a backslash (e.g., "children\'s story")
     9. NEVER use straight double quotes within text strings - use single quotes instead
     10. Example of properly escaped text: "Read a short children\'s story"
+    11. Avoid putting unnecessary tasks like grocery shopping and any others, just put in tasks that conform to my goals
     12. All times in 24-hour format (e.g., "17:00")
     14. Balance mental/physical activities
     15. Progressive difficulty throughout week
