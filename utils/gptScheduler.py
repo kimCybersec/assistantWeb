@@ -17,7 +17,7 @@ def generateSchedule(goal, sessionId = "anonymous"):
     - Example format: ["Do this task","Do that task", "Do that other task"]
 
     2. DAILY SCHEDULE (5AM-11PM):
-    - Assign time blocks to tasks
+    - Assign time blocks to tasks and make sure they are accurate
     - No tasks between 10AM-5PM (work hours)
     - Must include:
     * Wake up time
