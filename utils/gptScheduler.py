@@ -51,7 +51,6 @@ def generateSchedule(goal, sessionId = "anonymous"):
     8. Escape ALL apostrophes in text with a backslash (e.g., "children\'s story")
     9. NEVER use straight double quotes within text strings - use single quotes instead
     10. Example of properly escaped text: "Read a short children\'s story"
-    11. Never schedule tasks during 9:00-17:00 except "Work"
     12. All times in 24-hour format (e.g., "17:00")
     13. Include transition time between activities
     14. Balance mental/physical activities
