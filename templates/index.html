@@ -2,14 +2,6 @@
 
 {% block content %}
 <form method="POST">
-    <script>
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.register('/static/sw.js')
-          .then(reg => console.log('ServiceWorker registered', reg))
-          .catch(err => console.error('ServiceWorker registration failed:', err));
-      }
-    </script>
-
     <div class="schedule-container">
     {% for day in days %}
         <div class="day-block">
